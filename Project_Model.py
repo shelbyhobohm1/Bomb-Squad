@@ -19,6 +19,12 @@ import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.animation import FuncAnimation
 
+# Starting Input aka Reaction Magnitude - This computes the number of starting Xe-140 atoms
+ReactionMagnitude = 1 #Kt
+Ktatoms = 2.8E23 #number of fission product atoms per Kiloton
+XeFissionYield = 3.515E-2 #independent fission yield of U-235 to Xe-140
+XeAtoms = ReactionMagnitude*Ktatoms*XeFissionYield
+
 #Place holders for velocity terms
 LeakVelocity = 1 #[m/s]
 SeepVelocity = 10 #[m/s]
@@ -71,7 +77,7 @@ LL_CE = 0
 
 LL = [LL_XE, LL_CS, LL_BA, LL_LA, LL_CE]
 
-## Compuate Coefficients
+## Compute Coefficients
 
 coefficients = []
 for NUM_COEFF in range(0,5):
@@ -93,7 +99,7 @@ COEFF = np.array(coefficients)
 
 ## Compute Radionuclide Density
 ## NN[0] is the starting amounts of each radionuclide
-Initial_amount_fission_product = 1
+Initial_amount_fission_product = XeAtoms
 NN = [[Initial_amount_fission_product,0,0,0,0]]
 T = 0
 for i in range(0,int(timespan/2)):
